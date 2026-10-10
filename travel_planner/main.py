@@ -1,14 +1,50 @@
+import asyncio
+import time
 from datetime import date
 
-from agents import Runner
 from dotenv import load_dotenv
 
-from travel_planner.agents.activity import activity_agent
-from travel_planner.agents.flight import flight_agent
-from travel_planner.agents.hotel import hotel_agent
+from travel_planner.orchestrator.graph import build_graph
 from travel_planner.schemas import TripRequest
 
 load_dotenv()
+
+
+def print_plan(state: dict) -> None:
+    req, b = state["request"], state["budgets"]
+    transport, hotel = state["transport"], state["hotel"].hotel
+    acts = state["activities"].activities
+
+    t_total = transport.outbound.price + transport.inbound.price
+    h_total = hotel.price_per_night * req.nights
+    a_total = sum(a.cost for a in acts)
+
+    print("\n=== TRANSPORT ===")
+    for leg in (transport.outbound, transport.inbound):
+        print(f"{leg.origin} -> {leg.destination}: {leg.carrier} ({leg.mode}) "
+              f"{leg.depart}-{leg.arrive}, Rs {leg.price:.0f}")
+    print(f"Subtotal: Rs {t_total:.0f} (budget Rs {b['transport']:.0f})")
+
+    print("\n=== HOTEL ===")
+    print(f"{hotel.name} ({hotel.area}), rating {hotel.rating}, "
+          f"Rs {hotel.price_per_night:.0f}/night x {req.nights}")
+    print(f"Subtotal: Rs {h_total:.0f} (budget Rs {b['stay']:.0f})")
+
+    print("\n=== ACTIVITIES ===")
+    for a in acts:
+        print(f"- {a.name} ({a.area}, {a.time_of_day}) Rs {a.cost:.0f}")
+    print(f"Subtotal: Rs {a_total:.0f} (budget Rs {b['activities']:.0f})")
+
+    print(f"\nGRAND TOTAL: Rs {t_total + h_total + a_total:.0f} of Rs {req.budget:.0f}")
+    print(f"Attempts used: {state['attempts']}")
+    if state["feedback"]:
+        print("\nWARNING: unresolved problems after the last attempt:")
+        for agent, msg in state["feedback"].items():
+            print(f"- {agent}: {msg}")
+
+
+async def run(request: TripRequest) -> dict:
+    return await build_graph().ainvoke({"request": request})
 
 
 def main() -> None:
@@ -17,63 +53,14 @@ def main() -> None:
         destination="Goa",
         start=date(2026, 12, 20),
         end=date(2026, 12, 25),
-        budget=60000,
+        budget=22000,
         preferences=["beaches", "food", "no early mornings"],
     )
-    prefs = ", ".join(request.preferences)
-
-    # Budget split and math are done in code, not by the LLM
-    transport_budget = request.budget * 0.35
-    stay_budget = request.budget * 0.40
-    activity_budget = request.budget * 0.25
-    max_nightly = stay_budget / request.nights
-
-    transport = Runner.run_sync(
-        flight_agent,
-        f"Origin: {request.origin}\nDestination: {request.destination}\n"
-        f"Transport budget (round trip total): Rs {transport_budget:.0f}\n"
-        f"Preferences: {prefs}",
-    ).final_output
-
-    hotel = Runner.run_sync(
-        hotel_agent,
-        f"Destination: {request.destination}\nNights: {request.nights}\n"
-        f"Maximum price per night: Rs {max_nightly:.0f}\n"
-        f"Preferences: {prefs}",
-    ).final_output
-
-    activities = Runner.run_sync(
-        activity_agent,
-        f"Destination: {request.destination}\n"
-        f"Trip length: {request.nights} nights\n"
-        f"Activity budget: Rs {activity_budget:.0f}\n"
-        f"Preferences: {prefs}",
-    ).final_output
-
-    transport_total = transport.outbound.price + transport.inbound.price
-    stay_total = hotel.hotel.price_per_night * request.nights
-    activity_total = sum(a.cost for a in activities.activities)
-    grand_total = transport_total + stay_total + activity_total
-
-    print("\n=== TRANSPORT ===")
-    for leg in (transport.outbound, transport.inbound):
-        print(f"{leg.origin} -> {leg.destination}: {leg.carrier} ({leg.mode}) "
-              f"{leg.depart}-{leg.arrive}, Rs {leg.price:.0f}")
-    print(f"Subtotal: Rs {transport_total:.0f} (budget Rs {transport_budget:.0f})")
-
-    print("\n=== HOTEL ===")
-    print(f"{hotel.hotel.name} ({hotel.hotel.area}), rating {hotel.hotel.rating}, "
-          f"Rs {hotel.hotel.price_per_night:.0f}/night x {request.nights}")
-    print(f"Subtotal: Rs {stay_total:.0f} (budget Rs {stay_budget:.0f})")
-
-    print("\n=== ACTIVITIES ===")
-    for a in activities.activities:
-        print(f"- {a.name} ({a.area}, {a.time_of_day}) Rs {a.cost:.0f}")
-    print(f"Subtotal: Rs {activity_total:.0f} (budget Rs {activity_budget:.0f})")
-
-    print(f"\nGRAND TOTAL: Rs {grand_total:.0f} of Rs {request.budget:.0f}")
+    started = time.perf_counter()
+    state = asyncio.run(run(request))
+    print_plan(state)
+    print(f"Time taken: {time.perf_counter() - started:.1f}s")
 
 
 if __name__ == "__main__":
     main()
-    
