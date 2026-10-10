@@ -1,0 +1,19 @@
+{
+  "goa": [
+    {"name": "Baga Beach afternoon", "area": "North Goa", "cost": 0, "duration_hours": 3, "category": "beach", "time_of_day": "afternoon"},
+    {"name": "Palolem Beach morning", "area": "South Goa", "cost": 0, "duration_hours": 3, "category": "beach", "time_of_day": "morning"},
+    {"name": "Fort Aguada visit", "area": "Candolim", "cost": 100, "duration_hours": 1.5, "category": "culture", "time_of_day": "afternoon"},
+    {"name": "Old Goa churches and Basilica", "area": "Old Goa", "cost": 0, "duration_hours": 2, "category": "culture", "time_of_day": "morning"},
+    {"name": "Dudhsagar Falls jeep trip", "area": "Mollem", "cost": 1800, "duration_hours": 6, "category": "nature", "time_of_day": "early_morning"},
+    {"name": "Spice plantation tour with lunch", "area": "Ponda", "cost": 700, "duration_hours": 3, "category": "nature", "time_of_day": "morning"},
+    {"name": "Fontainhas heritage walk", "area": "Panaji", "cost": 0, "duration_hours": 2, "category": "culture", "time_of_day": "afternoon"},
+    {"name": "Goan seafood thali lunch", "area": "Panaji", "cost": 800, "duration_hours": 1.5, "category": "food", "time_of_day": "afternoon"},
+    {"name": "Sunset cruise on the Mandovi", "area": "Panaji", "cost": 500, "duration_hours": 1.5, "category": "nightlife", "time_of_day": "evening"},
+    {"name": "Anjuna flea market", "area": "Anjuna", "cost": 500, "duration_hours": 2.5, "category": "shopping", "time_of_day": "afternoon"},
+    {"name": "Water sports at Grande Island", "area": "Vasco", "cost": 2500, "duration_hours": 4, "category": "adventure", "time_of_day": "morning"},
+    {"name": "Beach shack dinner", "area": "Vagator", "cost": 1500, "duration_hours": 2, "category": "food", "time_of_day": "evening"},
+    {"name": "Chapora Fort sunset", "area": "Vagator", "cost": 0, "duration_hours": 1.5, "category": "culture", "time_of_day": "evening"},
+    {"name": "Nightclub evening", "area": "Baga", "cost": 1500, "duration_hours": 3, "category": "nightlife", "time_of_day": "night"},
+    {"name": "Goan cooking class", "area": "Candolim", "cost": 2000, "duration_hours": 3, "category": "food", "time_of_day": "morning"}
+  ]
+}
