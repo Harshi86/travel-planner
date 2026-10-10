@@ -15,5 +15,33 @@
     {"name": "Chapora Fort sunset", "area": "Vagator", "cost": 0, "duration_hours": 1.5, "category": "culture", "time_of_day": "evening"},
     {"name": "Nightclub evening", "area": "Baga", "cost": 1500, "duration_hours": 3, "category": "nightlife", "time_of_day": "night"},
     {"name": "Goan cooking class", "area": "Candolim", "cost": 2000, "duration_hours": 3, "category": "food", "time_of_day": "morning"}
+  ],
+  "jaipur": [
+    {"name": "Amber Fort visit", "area": "Amer", "cost": 500, "duration_hours": 3, "category": "culture", "time_of_day": "morning"},
+    {"name": "City Palace and Jantar Mantar", "area": "Pink City", "cost": 700, "duration_hours": 3, "category": "culture", "time_of_day": "morning"},
+    {"name": "Hawa Mahal photo stop", "area": "Pink City", "cost": 200, "duration_hours": 1, "category": "culture", "time_of_day": "morning"},
+    {"name": "Nahargarh Fort sunset", "area": "Nahargarh", "cost": 300, "duration_hours": 2, "category": "culture", "time_of_day": "evening"},
+    {"name": "Village-style dinner and folk show", "area": "Tonk Road", "cost": 1500, "duration_hours": 3, "category": "food", "time_of_day": "evening"},
+    {"name": "Rajasthani thali lunch", "area": "C-Scheme", "cost": 700, "duration_hours": 1.5, "category": "food", "time_of_day": "afternoon"},
+    {"name": "Johari Bazaar jewellery walk", "area": "Pink City", "cost": 0, "duration_hours": 2.5, "category": "shopping", "time_of_day": "afternoon"},
+    {"name": "Bapu Bazaar textile shopping", "area": "Pink City", "cost": 0, "duration_hours": 2, "category": "shopping", "time_of_day": "evening"},
+    {"name": "Hot air balloon ride", "area": "Amer", "cost": 12000, "duration_hours": 1.5, "category": "adventure", "time_of_day": "early_morning"},
+    {"name": "Block printing workshop", "area": "Sanganer", "cost": 1200, "duration_hours": 3, "category": "culture", "time_of_day": "morning"},
+    {"name": "Old city street food tour", "area": "Pink City", "cost": 900, "duration_hours": 3, "category": "food", "time_of_day": "evening"},
+    {"name": "Jal Mahal lakeside stop", "area": "Jal Mahal", "cost": 0, "duration_hours": 1, "category": "nature", "time_of_day": "afternoon"}
+  ],
+  "kochi": [
+    {"name": "Fort Kochi heritage walk", "area": "Fort Kochi", "cost": 0, "duration_hours": 2.5, "category": "culture", "time_of_day": "morning"},
+    {"name": "Chinese fishing nets at sunset", "area": "Fort Kochi", "cost": 0, "duration_hours": 1, "category": "culture", "time_of_day": "evening"},
+    {"name": "Kathakali performance", "area": "Fort Kochi", "cost": 400, "duration_hours": 1.5, "category": "culture", "time_of_day": "evening"},
+    {"name": "Alleppey houseboat day cruise", "area": "Alappuzha", "cost": 3500, "duration_hours": 6, "category": "nature", "time_of_day": "morning"},
+    {"name": "Backwater canoe tour", "area": "Kumbalangy", "cost": 800, "duration_hours": 2.5, "category": "nature", "time_of_day": "morning"},
+    {"name": "Kerala sadya lunch", "area": "Ernakulam", "cost": 600, "duration_hours": 1.5, "category": "food", "time_of_day": "afternoon"},
+    {"name": "Seafood dinner by the harbour", "area": "Fort Kochi", "cost": 1200, "duration_hours": 2, "category": "food", "time_of_day": "evening"},
+    {"name": "Spice market and Jew Town walk", "area": "Mattancherry", "cost": 0, "duration_hours": 2, "category": "shopping", "time_of_day": "afternoon"},
+    {"name": "Cherai Beach afternoon", "area": "Cherai", "cost": 0, "duration_hours": 3, "category": "beach", "time_of_day": "afternoon"},
+    {"name": "Munnar tea garden day trip", "area": "Munnar", "cost": 3000, "duration_hours": 10, "category": "nature", "time_of_day": "early_morning"},
+    {"name": "Marine Drive evening walk", "area": "Ernakulam", "cost": 0, "duration_hours": 1.5, "category": "nature", "time_of_day": "evening"},
+    {"name": "Kerala cooking class", "area": "Fort Kochi", "cost": 1800, "duration_hours": 3, "category": "food", "time_of_day": "morning"}
   ]
 }

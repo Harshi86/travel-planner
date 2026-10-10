@@ -8,5 +8,22 @@
     {"name": "Vagator Cliff Villa", "area": "Vagator", "price_per_night": 7500, "rating": 4.6, "tags": ["beach", "luxury"]},
     {"name": "Calangute Budget Inn", "area": "Calangute", "price_per_night": 1800, "rating": 3.8, "tags": ["beach", "budget"]},
     {"name": "Old Goa Homestay", "area": "Old Goa", "price_per_night": 2200, "rating": 4.0, "tags": ["culture", "food"]}
+  ],
+  "jaipur": [
+    {"name": "Pink City Heritage Haveli", "area": "Pink City", "price_per_night": 5200, "rating": 4.4, "tags": ["culture", "shopping"]},
+    {"name": "Amer Road Boutique Hotel", "area": "Amer", "price_per_night": 3600, "rating": 4.2, "tags": ["culture", "quiet"]},
+    {"name": "C-Scheme Business Stay", "area": "C-Scheme", "price_per_night": 2800, "rating": 4.0, "tags": ["food", "budget"]},
+    {"name": "Bazaar View Guesthouse", "area": "Johari Bazaar", "price_per_night": 1500, "rating": 3.8, "tags": ["shopping", "budget"]},
+    {"name": "Royal Palace Resort", "area": "Jaipur City", "price_per_night": 9500, "rating": 4.7, "tags": ["luxury", "culture"]},
+    {"name": "Tonk Road Garden Inn", "area": "Tonk Road", "price_per_night": 2300, "rating": 4.0, "tags": ["food", "quiet"]}
+  ],
+  "kochi": [
+    {"name": "Fort Kochi Seaside Homestay", "area": "Fort Kochi", "price_per_night": 3200, "rating": 4.4, "tags": ["culture", "food", "beach"]},
+    {"name": "Backwater Lake Resort", "area": "Alappuzha", "price_per_night": 6800, "rating": 4.6, "tags": ["nature", "quiet", "luxury"]},
+    {"name": "Ernakulam City Hotel", "area": "Ernakulam", "price_per_night": 2400, "rating": 4.0, "tags": ["food", "budget"]},
+    {"name": "Mattancherry Heritage Inn", "area": "Mattancherry", "price_per_night": 2900, "rating": 4.2, "tags": ["culture", "shopping"]},
+    {"name": "Cherai Beach Cottages", "area": "Cherai", "price_per_night": 3800, "rating": 4.3, "tags": ["beach", "quiet"]},
+    {"name": "Kochi Budget Hostel", "area": "Ernakulam", "price_per_night": 1100, "rating": 3.7, "tags": ["budget"]}
   ]
 }
+

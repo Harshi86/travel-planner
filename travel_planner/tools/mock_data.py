@@ -29,3 +29,11 @@ def load_hotels(destination: str) -> list[dict]:
     """Load hotels for a destination."""
     return _load("hotels.json").get(destination.strip().lower(), [])
 
+def available_destinations(origin: str = "Bengaluru") -> list[str]:
+    """Destinations that have activities, hotels and transport both ways."""
+    o = origin.strip().lower()
+    flights = _load("flights.json")
+    both = set(_load("activities.json")) & set(_load("hotels.json"))
+    return sorted(
+        d.title() for d in both if f"{o}-{d}" in flights and f"{d}-{o}" in flights
+    )

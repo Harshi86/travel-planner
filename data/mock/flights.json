@@ -12,5 +12,31 @@
     {"mode": "flight", "carrier": "Coastline Air", "origin": "Goa", "destination": "Bengaluru", "depart": "18:10", "arrive": "19:25", "price": 4700},
     {"mode": "train", "carrier": "Konkan Express", "origin": "Goa", "destination": "Bengaluru", "depart": "17:00", "arrive": "07:30 next day", "price": 1900},
     {"mode": "bus", "carrier": "Night Coach", "origin": "Goa", "destination": "Bengaluru", "depart": "19:30", "arrive": "06:30 next day", "price": 1600}
+  ],
+  "bengaluru-jaipur": [
+    {"mode": "flight", "carrier": "SkyAir", "origin": "Bengaluru", "destination": "Jaipur", "depart": "05:50", "arrive": "08:40", "price": 5800},
+    {"mode": "flight", "carrier": "IndoJet", "origin": "Bengaluru", "destination": "Jaipur", "depart": "10:15", "arrive": "13:05", "price": 6900},
+    {"mode": "flight", "carrier": "Coastline Air", "origin": "Bengaluru", "destination": "Jaipur", "depart": "15:40", "arrive": "18:30", "price": 6200},
+    {"mode": "train", "carrier": "Rajasthan Link Express", "origin": "Bengaluru", "destination": "Jaipur", "depart": "21:00", "arrive": "07:00 in 2 days", "price": 2400}
+  ],
+  "jaipur-bengaluru": [
+    {"mode": "flight", "carrier": "SkyAir", "origin": "Jaipur", "destination": "Bengaluru", "depart": "06:30", "arrive": "09:20", "price": 5900},
+    {"mode": "flight", "carrier": "IndoJet", "origin": "Jaipur", "destination": "Bengaluru", "depart": "11:40", "arrive": "14:30", "price": 7000},
+    {"mode": "flight", "carrier": "Coastline Air", "origin": "Jaipur", "destination": "Bengaluru", "depart": "19:10", "arrive": "22:00", "price": 6300},
+    {"mode": "train", "carrier": "Rajasthan Link Express", "origin": "Jaipur", "destination": "Bengaluru", "depart": "13:00", "arrive": "05:00 in 2 days", "price": 2500}
+  ],
+  "bengaluru-kochi": [
+    {"mode": "flight", "carrier": "SkyAir", "origin": "Bengaluru", "destination": "Kochi", "depart": "06:45", "arrive": "08:00", "price": 3200},
+    {"mode": "flight", "carrier": "IndoJet", "origin": "Bengaluru", "destination": "Kochi", "depart": "11:20", "arrive": "12:35", "price": 3900},
+    {"mode": "flight", "carrier": "Coastline Air", "origin": "Bengaluru", "destination": "Kochi", "depart": "17:05", "arrive": "18:20", "price": 3500},
+    {"mode": "train", "carrier": "Island Express", "origin": "Bengaluru", "destination": "Kochi", "depart": "21:30", "arrive": "08:30 next day", "price": 1100},
+    {"mode": "bus", "carrier": "Night Coach", "origin": "Bengaluru", "destination": "Kochi", "depart": "21:00", "arrive": "06:30 next day", "price": 1300}
+  ],
+  "kochi-bengaluru": [
+    {"mode": "flight", "carrier": "SkyAir", "origin": "Kochi", "destination": "Bengaluru", "depart": "07:15", "arrive": "08:30", "price": 3300},
+    {"mode": "flight", "carrier": "IndoJet", "origin": "Kochi", "destination": "Bengaluru", "depart": "12:30", "arrive": "13:45", "price": 4000},
+    {"mode": "flight", "carrier": "Coastline Air", "origin": "Kochi", "destination": "Bengaluru", "depart": "18:40", "arrive": "19:55", "price": 3600},
+    {"mode": "train", "carrier": "Island Express", "origin": "Kochi", "destination": "Bengaluru", "depart": "19:00", "arrive": "06:45 next day", "price": 1200},
+    {"mode": "bus", "carrier": "Night Coach", "origin": "Kochi", "destination": "Bengaluru", "depart": "20:30", "arrive": "06:00 next day", "price": 1400}
   ]
 }

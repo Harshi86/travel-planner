@@ -1,6 +1,8 @@
+import asyncio
 from typing import TypedDict
 
 from agents import Runner
+from openai import RateLimitError
 from langgraph.graph import END, START, StateGraph
 
 from travel_planner.agents.activity import activity_agent
@@ -11,6 +13,18 @@ from travel_planner.orchestrator.validator import validate
 from travel_planner.schemas import ActivityPlan, HotelPlan, TransportPlan, TripRequest
 
 MAX_ATTEMPTS = 3
+
+async def run_with_retry(agent, prompt: str, retries: int = 3):
+    """Run an agent; if the free per-minute quota is hit, wait and try again."""
+    for attempt in range(retries + 1):
+        try:
+            return await Runner.run(agent, prompt)
+        except RateLimitError as exc:
+            # Only wait for per-minute limits. A daily limit won't clear in a minute.
+            if "PerMinute" not in str(exc) or attempt == retries:
+                raise
+            await asyncio.sleep(60 + 10 * attempt)
+            
 
 
 class PlanState(TypedDict, total=False):
@@ -52,7 +66,7 @@ async def flight_node(state: PlanState) -> dict:
         f"Transport budget (round trip total): Rs {b['transport']:.0f}\n"
         f"Preferences: {', '.join(r.preferences)}"
     )
-    result = await Runner.run(flight_agent, _with_feedback(prompt, state, "flight"))
+    result = await run_with_retry(flight_agent, _with_feedback(prompt, state, "flight"))
     return {"transport": result.final_output}
 
 
@@ -65,7 +79,7 @@ async def hotel_node(state: PlanState) -> dict:
         f"Maximum price per night: Rs {b['max_nightly']:.0f}\n"
         f"Preferences: {', '.join(r.preferences)}"
     )
-    result = await Runner.run(hotel_agent, _with_feedback(prompt, state, "hotel"))
+    result = await run_with_retry(hotel_agent, _with_feedback(prompt, state, "hotel"))
     return {"hotel": result.final_output}
 
 
@@ -78,7 +92,7 @@ async def activity_node(state: PlanState) -> dict:
         f"Activity budget: Rs {b['activities']:.0f}\n"
         f"Preferences: {', '.join(r.preferences)}"
     )
-    result = await Runner.run(activity_agent, _with_feedback(prompt, state, "activity"))
+    result = await run_with_retry(activity_agent, _with_feedback(prompt, state, "activity"))
     return {"activities": result.final_output}
 
 
