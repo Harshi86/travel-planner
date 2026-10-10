@@ -1,0 +1,12 @@
+{
+  "goa": [
+    {"name": "Baga Beachfront Resort", "area": "Baga", "price_per_night": 6500, "rating": 4.4, "tags": ["beach", "nightlife"]},
+    {"name": "Candolim Boutique Stay", "area": "Candolim", "price_per_night": 4200, "rating": 4.3, "tags": ["beach", "quiet", "food"]},
+    {"name": "Panaji Heritage Inn", "area": "Panaji", "price_per_night": 3000, "rating": 4.1, "tags": ["culture", "food"]},
+    {"name": "Anjuna Backpackers", "area": "Anjuna", "price_per_night": 1200, "rating": 3.9, "tags": ["nightlife", "budget"]},
+    {"name": "Palolem Beach Huts", "area": "Palolem", "price_per_night": 2800, "rating": 4.2, "tags": ["beach", "quiet"]},
+    {"name": "Vagator Cliff Villa", "area": "Vagator", "price_per_night": 7500, "rating": 4.6, "tags": ["beach", "luxury"]},
+    {"name": "Calangute Budget Inn", "area": "Calangute", "price_per_night": 1800, "rating": 3.8, "tags": ["beach", "budget"]},
+    {"name": "Old Goa Homestay", "area": "Old Goa", "price_per_night": 2200, "rating": 4.0, "tags": ["culture", "food"]}
+  ]
+}

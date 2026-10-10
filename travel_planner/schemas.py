@@ -18,17 +18,30 @@ class TripRequest(BaseModel):
 
 
 class FlightOption(BaseModel):
+    mode: str  # flight, train or bus
     carrier: str
-    price: float
-    depart: str
+    origin: str
+    destination: str
+    depart: str  # HH:MM
     arrive: str
+    price: float
+
+
+class TransportPlan(BaseModel):
+    outbound: FlightOption
+    inbound: FlightOption
 
 
 class HotelOption(BaseModel):
     name: str
-    price_per_night: float
     area: str
+    price_per_night: float
     rating: float
+    tags: list[str]
+
+
+class HotelPlan(BaseModel):
+    hotel: HotelOption
 
 
 class Activity(BaseModel):

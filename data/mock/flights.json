@@ -1,0 +1,16 @@
+{
+  "bengaluru-goa": [
+    {"mode": "flight", "carrier": "SkyAir", "origin": "Bengaluru", "destination": "Goa", "depart": "06:10", "arrive": "07:25", "price": 4200},
+    {"mode": "flight", "carrier": "IndoJet", "origin": "Bengaluru", "destination": "Goa", "depart": "10:30", "arrive": "11:45", "price": 5100},
+    {"mode": "flight", "carrier": "Coastline Air", "origin": "Bengaluru", "destination": "Goa", "depart": "14:20", "arrive": "15:35", "price": 4600},
+    {"mode": "train", "carrier": "Konkan Express", "origin": "Bengaluru", "destination": "Goa", "depart": "18:30", "arrive": "08:00 next day", "price": 1800},
+    {"mode": "bus", "carrier": "Night Coach", "origin": "Bengaluru", "destination": "Goa", "depart": "20:00", "arrive": "07:00 next day", "price": 1500}
+  ],
+  "goa-bengaluru": [
+    {"mode": "flight", "carrier": "SkyAir", "origin": "Goa", "destination": "Bengaluru", "depart": "07:00", "arrive": "08:15", "price": 4300},
+    {"mode": "flight", "carrier": "IndoJet", "origin": "Goa", "destination": "Bengaluru", "depart": "12:45", "arrive": "14:00", "price": 5000},
+    {"mode": "flight", "carrier": "Coastline Air", "origin": "Goa", "destination": "Bengaluru", "depart": "18:10", "arrive": "19:25", "price": 4700},
+    {"mode": "train", "carrier": "Konkan Express", "origin": "Goa", "destination": "Bengaluru", "depart": "17:00", "arrive": "07:30 next day", "price": 1900},
+    {"mode": "bus", "carrier": "Night Coach", "origin": "Goa", "destination": "Bengaluru", "depart": "19:30", "arrive": "06:30 next day", "price": 1600}
+  ]
+}
