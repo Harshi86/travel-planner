@@ -1,0 +1,10 @@
+id,destination,nights,budget,prefs,stress,total_cost,within_budget,constraints_ok,attempts,n_activities,activities_per_day,seconds,error
+1,Goa,5,60000,beach; food; no early mornings,False,33400,True,True,1,3,0.5,22.9,
+2,Jaipur,4,50000,culture; shopping; no early mornings,False,28400,True,True,1,5,1.0,4.5,
+3,Kochi,3,40000,nature; food,False,21900,True,True,1,5,1.25,4.9,
+4,Goa,5,8000,beach; food,True,12900,False,False,3,2,0.33,13.0,
+5,Jaipur,5,60000,adventure; culture,False,33400,True,True,1,5,0.83,66.6,
+6,Kochi,5,55000,culture; beach; no early mornings,False,24300,True,True,1,4,0.67,3.6,
+7,Goa,3,35000,beach; nightlife,False,23900,True,True,1,4,1.0,3.8,
+8,Jaipur,3,28000,shopping; food; no early mornings,False,22600,True,True,1,5,1.25,3.8,
+9,Kochi,4,45000,nature; adventure,False,27400,True,True,1,3,0.6,6.0,
