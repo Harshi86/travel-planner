@@ -104,7 +104,12 @@ async def chat(req: ChatRequest):
                         )
                 return {"reply": "Sorry, that took too many steps.", "tool_calls": calls}
     except Exception as e:
-        return {"reply": f"Sorry, something went wrong: {e}", "tool_calls": calls}
+        while isinstance(e, BaseExceptionGroup) and e.exceptions:
+            e = e.exceptions[0]
+        return {
+            "reply": f"Sorry, something went wrong: {type(e).__name__}: {e}",
+            "tool_calls": calls,
+        }
 
 
 if __name__ == "__main__":
