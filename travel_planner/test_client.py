@@ -1,4 +1,5 @@
 import asyncio
+
 from mcp import ClientSession
 from mcp.client.streamable_http import streamablehttp_client
 
@@ -10,7 +11,14 @@ async def main():
             tools = await session.list_tools()
             print("Tools:", [t.name for t in tools.tools])
             result = await session.call_tool(
-                "plan_trip", {"destination": "Goa", "nights": 3, "budget": 25000}
+                "plan_trip",
+                {
+                    "destination": "Goa",
+                    "nights": 5,
+                    "budget": 22000,
+                    "start_date": "2026-12-20",
+                    "preferences": ["beaches", "food", "no early mornings"],
+                },
             )
             print("Result:", result.content[0].text)
 
