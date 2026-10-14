@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alexa+ Simulator - Travel Planner</title>
+<style>
+  :root { --bg:#0f1b2d; --card:#17263c; --blue:#00caff; --text:#e8f1ff; --muted:#8aa0bd; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:var(--text);
+         display:flex; justify-content:center; min-height:100vh; }
+  .app { width:100%; max-width:720px; display:flex; flex-direction:column; padding:16px; gap:12px; }
+  header { display:flex; align-items:center; gap:12px; }
+  .ring { width:36px; height:36px; border-radius:50%; border:4px solid var(--blue);
+          box-shadow:0 0 12px var(--blue); }
+  .ring.listening { animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { box-shadow:0 0 28px var(--blue); } }
+  h1 { font-size:18px; margin:0; }
+  .sub { color:var(--muted); font-size:13px; }
+  #chat { flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:10px;
+          background:var(--card); border-radius:14px; padding:14px; min-height:380px; max-height:60vh; }
+  .msg { padding:10px 14px; border-radius:14px; max-width:85%; line-height:1.4; white-space:pre-wrap; }
+  .user { align-self:flex-end; background:#245a7a; }
+  .bot { align-self:flex-start; background:#22344f; }
+  details { align-self:flex-start; font-size:12px; color:var(--muted); max-width:95%; }
+  details pre { white-space:pre-wrap; margin:6px 0 0; background:#0f1b2d; padding:8px; border-radius:8px; }
+  .row { display:flex; gap:8px; }
+  input[type=text] { flex:1; padding:12px; border-radius:12px; border:1px solid #2c4468;
+                     background:var(--card); color:var(--text); font-size:15px; }
+  button { padding:12px 16px; border-radius:12px; border:0; cursor:pointer; font-size:15px;
+           background:var(--blue); color:#06202b; font-weight:600; }
+  button.mic { background:#22344f; color:var(--text); }
+  button.mic.on { background:#c0392b; }
+  .tips { color:var(--muted); font-size:12px; }
+  label { color:var(--muted); font-size:13px; display:flex; align-items:center; gap:6px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="ring" id="ring"></div>
+    <div>
+      <h1>Alexa+ Simulator</h1>
+      <div class="sub">Multi-Agent Travel Planner, connected through MCP</div>
+    </div>
+  </header>
+
+  <div id="chat"></div>
+
+  <div class="row">
+    <button class="mic" id="mic" title="Speak">🎤</button>
+    <input type="text" id="box" placeholder="Try: Plan a 5 night Goa trip under 22000 rupees" autocomplete="off">
+    <button id="send">Send</button>
+  </div>
+  <label><input type="checkbox" id="speak" checked> Read answers aloud</label>
+  <div class="tips">Voice input works in Chrome or Edge. Supported trips: Goa, Jaipur and Kochi from Bengaluru.</div>
+</div>
+
+<script>
+const chat = document.getElementById("chat");
+const box = document.getElementById("box");
+const ring = document.getElementById("ring");
+const micBtn = document.getElementById("mic");
+const history = [];
+
+function addMessage(text, who) {
+  const d = document.createElement("div");
+  d.className = "msg " + who;
+  d.textContent = text;
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
+  return d;
+}
+
+function addToolCalls(calls) {
+  for (const c of calls) {
+    const d = document.createElement("details");
+    const s = document.createElement("summary");
+    s.textContent = "🔧 MCP tool called: " + c.name;
+    const p = document.createElement("pre");
+    p.textContent = "Input: " + JSON.stringify(c.args, null, 2) + "\n\nResult:\n" + c.result;
+    d.appendChild(s);
+    d.appendChild(p);
+    chat.appendChild(d);
+  }
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function speak(text) {
+  if (!document.getElementById("speak").checked || !window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-IN";
+  speechSynthesis.speak(u);
+}
+
+async function send(text) {
+  text = text.trim();
+  if (!text) return;
+  box.value = "";
+  addMessage(text, "user");
+  history.push({ role: "user", content: text });
+  const thinking = addMessage("Thinking...", "bot");
+  try {
+    const r = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: history }),
+    });
+    const data = await r.json();
+    thinking.remove();
+    addToolCalls(data.tool_calls || []);
+    addMessage(data.reply, "bot");
+    history.push({ role: "assistant", content: data.reply });
+    speak(data.reply);
+  } catch (e) {
+    thinking.textContent = "Error: " + e;
+  }
+}
+
+document.getElementById("send").onclick = () => send(box.value);
+box.addEventListener("keydown", (e) => { if (e.key === "Enter") send(box.value); });
+
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (!SR) {
+  micBtn.disabled = true;
+  micBtn.title = "Voice input is not supported in this browser";
+} else {
+  const rec = new SR();
+  rec.lang = "en-IN";
+  rec.onstart = () => { micBtn.classList.add("on"); ring.classList.add("listening"); };
+  rec.onend = () => { micBtn.classList.remove("on"); ring.classList.remove("listening"); };
+  rec.onresult = (e) => send(e.results[0][0].transcript);
+  micBtn.onclick = () => { speechSynthesis.cancel(); rec.start(); };
+}
+
+addMessage("Hi! Tell me where you want to go, for how many nights, and your budget.", "bot");
+</script>
+</body>
+</html>
