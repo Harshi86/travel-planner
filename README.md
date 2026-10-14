@@ -6,6 +6,37 @@ A travel planner where specialised AI agents (transport, hotel, activities) work
 
 ![App screenshot](docs/app-screenshot.png)
 
+## Amazon Developer Hackathon: Alexa+ track (MCP server)
+
+This project entered the Amazon Developer Hackathon in the **Alexa+** track, with the **Open Source** mini challenge.
+
+### What existed before the hackathon
+The multi-agent travel planner itself: the transport, hotel and activity agents, the LangGraph orchestration, the budget allocator, the validator with its retry loop, the Streamlit app and the evaluation scripts. The last commit before hackathon work is tagged `pre-hackathon`.
+
+### What I built during the hackathon
+- **MCP server** (`travel_planner/mcp_server.py`) that exposes the planner over **Streamable HTTP** with four tools: `plan_trip`, `get_trip_details`, `check_budget` and `adjust_trip`. Replies are short and written to be spoken aloud.
+- **Simulated Alexa+ web app** (`travel_planner/alexa_sim.py` and `alexa_sim.html`): an MCP client where the user speaks or types a request, Gemini chooses which MCP tool to call, and the answer is shown and read aloud. Every tool call is visible in the chat.
+- **Test client** (`travel_planner/test_client.py`) for calling the MCP server directly.
+
+To see exactly what changed, compare the `pre-hackathon` tag with the latest commit:
+`git diff pre-hackathon..HEAD --stat`
+
+### Run the Alexa+ demo
+Use three steps, each in its own terminal, from the project folder:
+
+1. Start the MCP server:
+   `uv run python -m travel_planner.mcp_server`
+2. Start the simulated Alexa+ web app:
+   `uv run python -m travel_planner.alexa_sim`
+3. Open http://127.0.0.1:8001 in Chrome or Edge, then type or speak, for example: "Plan a 5 night Goa trip under 22000 rupees, I like beaches and food".
+
+Voice input uses the browser's speech recognition, so use Chrome or Edge. The planner only has mock data for Goa, Jaipur and Kochi, starting from Bengaluru.
+
+### Hackathon limitations
+- Alexa+ is simulated in a web app. It is not connected to a real Alexa+ device.
+- - **Trip persistence** in SQLite (`travel_planner/store.py`), so a trip ID keeps working after the server restarts.
+
+
 ## Features
 
 - **Three specialised agents**: transport (flight, train or bus), hotel and activities, each with its own tools and a typed (Pydantic) output

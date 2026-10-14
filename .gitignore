@@ -12,3 +12,6 @@ wheels/
 .env
 
 .streamlit/secrets.toml
+
+data/trips.db
+

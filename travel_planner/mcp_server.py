@@ -5,11 +5,9 @@ from mcp.server.fastmcp import FastMCP
 
 from travel_planner.main import run
 from travel_planner.schemas import TripRequest
+from travel_planner.store import load_trip, save_trip
 
 mcp = FastMCP("travel-planner", stateless_http=True)
-
-# Saved trips (lost when the server restarts; we can add a database later)
-TRIPS: dict[str, dict] = {}
 
 
 def _totals(state: dict) -> tuple[float, float, float]:
@@ -46,7 +44,7 @@ async def _run_and_save(request: TripRequest, trip_id: str | None = None) -> str
     except Exception as e:
         return f"Sorry, I could not plan the trip right now: {e}"
     trip_id = trip_id or uuid.uuid4().hex[:8]
-    TRIPS[trip_id] = state
+    save_trip(trip_id, state)
     return _short_summary(trip_id, state)
 
 
@@ -80,7 +78,7 @@ async def plan_trip(
 @mcp.tool()
 def get_trip_details(trip_id: str) -> str:
     """Get the full details of a planned trip: transport, hotel and activities."""
-    state = TRIPS.get(trip_id)
+    state = load_trip(trip_id)
     if not state:
         return f"I could not find a trip with ID {trip_id}."
     req = state["request"]
@@ -105,7 +103,7 @@ def get_trip_details(trip_id: str) -> str:
 @mcp.tool()
 def check_budget(trip_id: str) -> str:
     """Check a planned trip against its budget and list any unresolved problems."""
-    state = TRIPS.get(trip_id)
+    state = load_trip(trip_id)
     if not state:
         return f"I could not find a trip with ID {trip_id}."
     req, b = state["request"], state["budgets"]
@@ -132,7 +130,7 @@ async def adjust_trip(
     extra_preferences: list[str] | None = None,
 ) -> str:
     """Change a planned trip's budget in rupees or add preferences, then plan it again."""
-    state = TRIPS.get(trip_id)
+    state = load_trip(trip_id)
     if not state:
         return f"I could not find a trip with ID {trip_id}."
     old = state["request"]
