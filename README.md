@@ -35,6 +35,7 @@ Voice input uses the browser's speech recognition, so use Chrome or Edge. The pl
 ### Hackathon limitations
 - Alexa+ is simulated in a web app. It is not connected to a real Alexa+ device.
 - - **Trip persistence** in SQLite (`travel_planner/store.py`), so a trip ID keeps working after the server restarts.
+- **Trip persistence** in SQLite (`travel_planner/store.py`), so a trip ID keeps working after the server restarts.
 
 
 ## Features
